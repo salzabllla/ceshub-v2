@@ -1,24 +1,18 @@
-# CESHUB — Control Energy System UNS
+# CESHUB V2
 
-Laravel research portal and IoT monitoring interface.
+Project website untuk menampilkan informasi riset dan memantau perangkat IoT. Pengunjung bisa melihat riset, tim, dan dashboard pemantauan dari satu website.
 
-## Portfolio source edition
+## Fitur
 
-This source snapshot demonstrates the website implementation. It is a sanitized portfolio edition, not a production backup or a deploy-ready release. The original website is unchanged.
+1. Halaman informasi riset dan anggota tim.
+2. Inventaris untuk mencatat alat.
+3. Dashboard pemantauan data perangkat IoT.
+4. Panel admin untuk mengelola isi website.
 
-Author: Salza Billa. Website development contribution is described in the portfolio CV.
+## Cara kerja
 
-## Excluded from this public edition
+Perangkat mengirim data ke server. Dashboard menampilkan data untuk pemantauan. Admin mengelola informasi riset dan inventaris melalui panel admin.
 
-- Production and user databases, data exports, migrations and seed data.
-- Environment files, credentials, tokens and production configuration.
-- User uploads, personal media, generated QR codes, invoices, logs and caches.
-- Existing Git history, dependencies, compiled builds and internal operational documentation.
+## Versi portofolio
 
-Personal contact strings and production connection identifiers in the selected source are replaced with placeholders. Configure an independent demo environment before running it. Database schemas, media assets and some runtime configuration are intentionally absent, so the application is not expected to run unchanged.
-
-## Main source folders
-
-`app/`, `config/`, `resources/` and `routes/`.
-
-Additional public-edition exclusions: production security rules, cloud notification functions, generated third-party browser assets and dependency lockfiles. Demo names and links replace remaining operational references.
+Untuk menjalankan salinan ini, siapkan konfigurasi dan data demo sendiri.
