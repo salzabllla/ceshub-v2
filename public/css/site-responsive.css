@@ -920,3 +920,15 @@ body:has(.lab-page)>.wrap:has(>.dashboard-history)>.dashboard-history,body.hess-
  .research-page .research-story__meta>span{display:inline}
  .research-page .research-story__meta time::before{content:"·";margin-inline-end:5px}
 }
+
+/* UI review 2026-11-09: readable mobile text and larger touch areas.
+   Loaded last so it wins over the earlier mobile patches above. */
+@media (max-width:600px){
+ .home-overview #tentang .about-grid p,#tentang .about-grid p{font-size:15px!important;line-height:1.6!important}
+ .project-showcase-tabs button>span:nth-child(2){font-size:13px!important;line-height:1.35!important}
+ .project-showcase-tabs .project-choice-number{font-size:12px!important}
+ .hero .values>span,.values>span{font-size:12px!important}
+ /* Theme buttons stay 30px visually; the hit area grows to 44px. */
+ .theme-switch>button,.theme-switch>.theme-picker>summary{position:relative}
+ .theme-switch>button::after,.theme-switch>.theme-picker>summary::after{content:"";position:absolute;inset:-7px}
+}

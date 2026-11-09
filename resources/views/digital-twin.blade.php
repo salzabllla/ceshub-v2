@@ -64,8 +64,8 @@
             
             <div class="dt-layout"><div class="dt-main">
             <section class="dt-battery-card">
-                @php($batteryPhoto = file_exists(public_path('uploads/digital-twin-baterai.jpg')) ? asset('uploads/digital-twin-baterai.jpg') : 'https://www.italsystemsrl.it/wp-content/uploads/2024/10/nuovasede2021_2.jpg')
-                <img src="{{ $batteryPhoto }}" alt="Ilustrasi peneliti bekerja di laboratorium elektronika">
+                {{-- Upload uploads/digital-twin-baterai.jpg to show a photo; otherwise the dark card background is used. --}}
+                @if(file_exists(public_path('uploads/digital-twin-baterai.jpg')))<img src="{{ asset('uploads/digital-twin-baterai.jpg') }}" alt="Perangkat Digital Twin Baterai CES">@endif
                 <div class="dt-battery-copy"><h2>Kondisi baterai</h2><p>State of charge</p><strong><span data-bms-mirror="rt-bmsSoc">—</span><small> %</small></strong><p id="battery-report-status">Menunggu laporan BMS</p></div>
             </section>
             <div class="flex gap-4 border-b border-gray-200 mb-8 overflow-x-auto">
@@ -105,9 +105,9 @@
                         <div class="blob -right-4 -top-4 w-24 h-24" style="background:#f43f5e;"></div>
                         <div class="flex items-center justify-between mb-6 relative z-10"><div class="flex items-center gap-2"><div class="w-2 h-6 rounded-full" style="background:#f43f5e;"></div><h3 class="text-sm font-bold text-faint uppercase tracking-widest">Fasa A (R)</h3></div></div>
                         <div class="space-y-4 relative z-10">
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vA" class="text-3xl font-extrabold text-primary mono">0.00</span> <span class="text-faint font-semibold">V</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vA" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">V</span></div></div>
                             <div class="w-full h-px divider"></div>
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cA" class="text-3xl font-extrabold text-primary mono">0.000</span> <span class="text-faint font-semibold">A</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cA" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">A</span></div></div>
                         </div>
                     </div>
                     
@@ -115,9 +115,9 @@
                         <div class="blob -right-4 -top-4 w-24 h-24" style="background:#f59e0b;"></div>
                         <div class="flex items-center gap-2 mb-6 relative z-10"><div class="w-2 h-6 rounded-full" style="background:#f59e0b;"></div><h3 class="text-sm font-bold text-faint uppercase tracking-widest">Fasa B (S)</h3></div>
                         <div class="space-y-4 relative z-10">
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vB" class="text-3xl font-extrabold text-primary mono">0.00</span> <span class="text-faint font-semibold">V</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vB" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">V</span></div></div>
                             <div class="w-full h-px divider"></div>
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cB" class="text-3xl font-extrabold text-primary mono">0.000</span> <span class="text-faint font-semibold">A</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cB" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">A</span></div></div>
                         </div>
                     </div>
                     
@@ -125,9 +125,9 @@
                         <div class="blob -right-4 -top-4 w-24 h-24" style="background:#3b82f6;"></div>
                         <div class="flex items-center gap-2 mb-6 relative z-10"><div class="w-2 h-6 rounded-full" style="background:#3b82f6;"></div><h3 class="text-sm font-bold text-faint uppercase tracking-widest">Fasa C (T)</h3></div>
                         <div class="space-y-4 relative z-10">
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vC" class="text-3xl font-extrabold text-primary mono">0.00</span> <span class="text-faint font-semibold">V</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Tegangan</span><div class="text-right"><span id="rt-vC" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">V</span></div></div>
                             <div class="w-full h-px divider"></div>
-                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cC" class="text-3xl font-extrabold text-primary mono">0.000</span> <span class="text-faint font-semibold">A</span></div></div>
+                            <div class="flex justify-between items-end"><span class="text-sm text-secondary font-medium">Arus</span><div class="text-right"><span id="rt-cC" class="text-3xl font-extrabold text-primary mono">—</span> <span class="text-faint font-semibold">A</span></div></div>
                         </div>
                     </div>
                 </div>
@@ -177,22 +177,22 @@
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#10b981;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Tegangan</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcV">0.00</span> <span class="text-base font-medium text-faint">V</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcV">—</span> <span class="text-base font-medium text-faint">V</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#f97316;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Arus</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcA">0.00</span> <span class="text-base font-medium text-faint">A</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcA">—</span> <span class="text-base font-medium text-faint">A</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#8b5cf6;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Daya</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcW">0.00</span> <span class="text-base font-medium text-faint">W</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcW">—</span> <span class="text-base font-medium text-faint">W</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#0d9488;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Energi</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcWh">0.00</span> <span class="text-base font-medium text-faint">Wh</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-dcWh">—</span> <span class="text-base font-medium text-faint">Wh</span></h3>
                     </div>
                 </div>
 
@@ -235,22 +235,22 @@
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#3b82f6;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Tegangan</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsV">0.00</span> <span class="text-base font-medium text-faint">V</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsV">—</span> <span class="text-base font-medium text-faint">V</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#f97316;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Arus</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsA">0.00</span> <span class="text-base font-medium text-faint">A</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsA">—</span> <span class="text-base font-medium text-faint">A</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#10b981;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">SOC (Kapasitas)</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsSoc">0.00</span> <span class="text-base font-medium text-faint">%</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsSoc">—</span> <span class="text-base font-medium text-faint">%</span></h3>
                     </div>
                     <div class="panel-raised p-6 text-center card-hover relative overflow-hidden">
                         <div class="blob -right-6 -top-6 w-20 h-20" style="background:#f43f5e;"></div>
                         <p class="text-xs font-bold text-faint mb-1 uppercase tracking-widest relative z-10 mt-2">Temperatur</p>
-                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsTemp">0.00</span> <span class="text-base font-medium text-faint">°C</span></h3>
+                        <h3 class="text-3xl font-extrabold text-primary mono relative z-10"><span id="rt-bmsTemp">—</span> <span class="text-base font-medium text-faint">°C</span></h3>
                     </div>
                 </div>
 

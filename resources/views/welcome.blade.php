@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Control Energy System — kabar riset, tim, dan project pemantauan energi Teknik Elektro UNS.">
     <meta name="theme-color" content="#0f172a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CES — Control Energy System">
+    <meta property="og:title" content="CES | Control Energy System — Teknik Elektro UNS">
+    <meta property="og:description" content="Kabar riset, tim, dan project pemantauan energi Teknik Elektro UNS.">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:image" content="{{ asset('assets/logo/ces-logo.png') }}">
+    <meta name="twitter:card" content="summary">
     <title>CES | Control Energy System — Teknik Elektro UNS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

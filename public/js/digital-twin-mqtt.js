@@ -22,18 +22,18 @@ const clientId = "cespv_web_" + Math.random().toString(16).substr(2, 8);
             }
         }
 
-        // FUNGSI OTOMATIS MERESET ANGKA KE 0.00 KETIKA PERANGKAT MATI
+        // FUNGSI OTOMATIS MERESET ANGKA KE "—" KETIKA PERANGKAT MATI (bukan 0.00, supaya tidak terbaca sebagai nilai nol)
         function resetNilaiSensor(sensor) {
             if (sensor === 'ac') {
-                document.getElementById("rt-vA").innerText = "0.00"; document.getElementById("rt-cA").innerText = "0.000";
-                document.getElementById("rt-vB").innerText = "0.00"; document.getElementById("rt-cB").innerText = "0.000";
-                document.getElementById("rt-vC").innerText = "0.00"; document.getElementById("rt-cC").innerText = "0.000";
+                document.getElementById("rt-vA").innerText = "—"; document.getElementById("rt-cA").innerText = "—";
+                document.getElementById("rt-vB").innerText = "—"; document.getElementById("rt-cB").innerText = "—";
+                document.getElementById("rt-vC").innerText = "—"; document.getElementById("rt-cC").innerText = "—";
             } else if (sensor === 'dc') {
-                document.getElementById("rt-dcV").innerText = "0.00"; document.getElementById("rt-dcA").innerText = "0.00";
-                document.getElementById("rt-dcW").innerText = "0.00"; document.getElementById("rt-dcWh").innerText = "0.00";
+                document.getElementById("rt-dcV").innerText = "—"; document.getElementById("rt-dcA").innerText = "—";
+                document.getElementById("rt-dcW").innerText = "—"; document.getElementById("rt-dcWh").innerText = "—";
             } else if (sensor === 'bms') {
-                document.getElementById("rt-bmsV").innerText = "0.00"; document.getElementById("rt-bmsA").innerText = "0.00";
-                document.getElementById("rt-bmsSoc").innerText = "0.00"; document.getElementById("rt-bmsTemp").innerText = "0.00";
+                document.getElementById("rt-bmsV").innerText = "—"; document.getElementById("rt-bmsA").innerText = "—";
+                document.getElementById("rt-bmsSoc").innerText = "—"; document.getElementById("rt-bmsTemp").innerText = "—";
             }
         }
 
