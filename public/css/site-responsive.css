@@ -932,3 +932,12 @@ body:has(.lab-page)>.wrap:has(>.dashboard-history)>.dashboard-history,body.hess-
  .theme-switch>button,.theme-switch>.theme-picker>summary{position:relative}
  .theme-switch>button::after,.theme-switch>.theme-picker>summary::after{content:"";position:absolute;inset:-7px}
 }
+
+/* UI review 2026-11-09 (2): no text under 12px on mobile. */
+@media (max-width:600px){
+ .mobile-nav .mobile-project-label{font-size:12px!important}
+ .breadcrumb,.breadcrumb a,.breadcrumb span{font-size:12px!important}
+ .research-page .research-story__category,.research-story__category{font-size:12px!important}
+ .research-page .research-story__meta,.research-story__meta,.research-story__meta>span,.research-story__meta time{font-size:12px!important}
+ .media-controls>span{font-size:12px!important}
+}
