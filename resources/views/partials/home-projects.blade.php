@@ -13,7 +13,6 @@
                 $fallbacks = ['Digital Twin Baterai'=>'digital-twin-baterai.jpg','Digital Twin PV'=>'lab-scale-pv.jpg','HESS'=>'hess-battery-testing-inl.jpg','Monitoring Kumbung Jamur'=>'jamur-kumbung-aktual.jpg'];
                 $fallback = $fallbacks[$label] ?? null;
                 $previewPhoto = $matchingProject?->thumbnail ? asset('uploads/'.$matchingProject->thumbnail) : ($fallback && file_exists(public_path('uploads/'.$fallback)) ? asset('uploads/'.$fallback) : null);
-                if (!$previewPhoto && $label === 'Digital Twin Baterai') $previewPhoto = 'https://www.italsystemsrl.it/wp-content/uploads/2024/10/nuovasede2021_2.jpg';
                 if (!$previewPhoto && $label === 'Digital Twin PV') $previewPhoto = 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=85';
             @endphp
             <article class="project-showcase-panel" id="project-preview-{{ $loop->index }}" role="tabpanel" aria-labelledby="project-choice-{{ $loop->index }}" @if(!$loop->first) hidden @endif>

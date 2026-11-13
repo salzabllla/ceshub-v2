@@ -26,14 +26,14 @@ class PostForm
                     ->columnSpanFull(),
                 FileUpload::make('thumbnail')->label('Foto utama')->disk('uploads')
 		    ->image()
-		    ->directory('posts')
+		    ->directory('posts')->imageResizeMode('contain')->imageResizeTargetWidth('1280')->imageResizeTargetHeight('1280')->imageResizeUpscale(false)
 		    ->imageEditor(),
                 FileUpload::make('images')
                     ->label('Gambar tambahan')
                     ->helperText('Bisa menambahkan hingga 12 foto. Foto utama tetap menjadi sampul berita.')
                     ->image()
                     ->disk('uploads')
-                    ->directory('posts')
+                    ->directory('posts')->imageResizeMode('contain')->imageResizeTargetWidth('1280')->imageResizeTargetHeight('1280')->imageResizeUpscale(false)
                     ->multiple()
                     ->reorderable()
                     ->maxFiles(12)
