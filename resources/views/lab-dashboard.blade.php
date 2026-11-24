@@ -33,6 +33,22 @@
                 <div class="lab-metrics"><div>Tegangan<strong><span data-reading="tegangan">—</span> V</strong></div><div>Arus<strong><span data-reading="arus">—</span> A</strong></div><div>Estimasi irradiansi<strong><span data-reading="irradiansi">—</span> W/m²</strong></div><div>Suhu<strong><span data-reading="suhu">—</span> °C</strong></div></div>
             </section>
 
+            <section class="lab-card pv-prediction" aria-labelledby="pv-prediction-title">
+                <div class="pv-prediction-main">
+                    <div class="pv-prediction-summary">
+                        <div class="pv-prediction-heading"><h2 id="pv-prediction-title">Deteksi Anomali Daya</h2><p>Daya aktual dibandingkan dengan prediksi model SS2.</p></div>
+                        <div class="pv-prediction-values"><div><small>Aktual</small><strong><span data-reading="daya">—</span> W</strong></div><div><small>Prediksi</small><strong><span data-reading="ss2_prediksi">—</span> W</strong></div><div><small>Selisih</small><strong><span data-reading="ss2_selisih">—</span> W</strong></div></div>
+                        <span class="pv-prediction-status" data-reading="ss2_status">Menunggu data pembanding</span>
+                    </div>
+                    <div class="pv-prediction-chart"><canvas id="anomaly-chart" role="img" aria-label="Grafik interaktif daya aktual dan prediksi model"></canvas><span class="sensor-chart-empty">Menunggu data pembanding</span></div>
+                </div>
+                <div class="pv-prediction-explainer">
+                    <div><strong>Cara membaca hasil</strong><dl><dt>Model yang digunakan</dt><dd>SS2 · state-space diskrit</dd><dt>Interval model</dt><dd>2 detik</dd><dt>Input</dt><dd>Estimasi irradiansi + suhu</dd><dt>Output</dt><dd>Prediksi daya</dd><dt>Fit data estimasi</dt><dd>85,26% · RMSE 1,56 W</dd></dl></div>
+                    <div class="pv-prediction-thresholds"><strong>Batas status</strong><span class="is-normal">Normal ≤ 3,12 W</span><span class="is-observe">Perlu diamati 3,13–4,68 W</span><span class="is-candidate">Kandidat anomali &gt; 4,68 W</span><span class="is-rule">Anomali terdeteksi setelah 3 pembacaan berturut-turut</span></div>
+                </div>
+                <p class="pv-prediction-note">Ambang awal; dikalibrasi ulang setelah validasi residual.</p>
+            </section>
+
     <section class="pv-charts" aria-label="Grafik pembacaan Digital Twin PV">
         <div class="lab-card pv-chart" data-pv-color="power"><h2>Grafik daya</h2><div class="lab-chart"><canvas id="production-chart" role="img" aria-label="Grafik daya PV"></canvas><span class="sensor-chart-empty">Belum ada pembacaan</span></div></div>
         <div class="lab-card pv-chart" data-pv-color="voltage"><h2>Grafik tegangan</h2><div class="lab-chart"><canvas id="voltage-chart" role="img" aria-label="Grafik tegangan PV"></canvas><span class="sensor-chart-empty">Belum ada pembacaan</span></div></div>

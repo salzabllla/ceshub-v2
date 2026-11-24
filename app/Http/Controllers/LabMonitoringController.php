@@ -26,22 +26,86 @@ class LabMonitoringController extends Controller
 
     public function data()
     {
-        $latest = LabSubmersible::latest('created_at')->latest('id')->first();
+        $latestRows = LabSubmersible::orderByDesc('created_at')->orderByDesc('id')->limit(4)->get();
+        $latest = $latestRows->first();
         $age = $latest ? $latest->created_at->diffInSeconds(now(), false) : null;
         $config = SubmersibleConfig::find(2);
 
+        $reading = $latest
+            ? $this->readingsWithSs2($latestRows->reverse()->values())->last()
+            : null;
+
         return response()->json([
             'health' => \App\Services\LabDeviceHealth::read(storage_path('app/ces-ota/health.json')),
-            'reading' => $latest ? $this->reading($latest) : null,
+            'reading' => $reading,
             'online' => $age !== null && $age >= -60 && $age <= 300,
             'commands' => ['lampu1' => (int) ($config?->lampu1 ?? 0), 'lampu2' => (int) ($config?->lampu2 ?? 0)],
         ])->header('Cache-Control', 'no-store');
     }
 
+    private function ss2NextPower(LabSubmersible $row): float
+    {
+        // SS2 MATLAB: x[k+1]=0.9883x[k]+B.u[k], y[k]=1102x[k].
+        $state = (float) $row->daya / 1102;
+        $irradiance = (float) $row->estimasi_irradiansi;
+        $temperature = (float) $row->suhu;
+
+        return round(1102 * (
+            0.9883 * $state
+            + 8.604e-06 * $irradiance
+            + 9.239e-07 * $temperature
+        ), 2);
+    }
+
+    private function ss2Comparison(LabSubmersible $previous, LabSubmersible $current, int $candidateStreak = 0): array
+    {
+        $predicted = $this->ss2NextPower($previous);
+        $difference = round((float) $current->daya - $predicted, 2);
+        $absoluteDifference = abs($difference);
+        $level = $absoluteDifference <= 3.12 ? 'normal' : ($absoluteDifference <= 4.68 ? 'observe' : 'candidate');
+        $anomaly = $level === 'candidate' && $candidateStreak >= 3;
+        $status = match (true) {
+            $anomaly => 'Anomali terdeteksi',
+            $level === 'candidate' => 'Indikasi anomali',
+            $level === 'observe' => 'Perlu diamati',
+            default => 'Dalam rentang normal',
+        };
+
+        return [
+            'ss2_prediksi' => $predicted,
+            'ss2_selisih' => $difference,
+            'ss2_anomali' => $anomaly,
+            'ss2_level' => $anomaly ? 'anomaly' : $level,
+            'ss2_status' => $status,
+        ];
+    }
+
+    private function emptySs2Comparison(): array
+    {
+        return ['ss2_prediksi' => null, 'ss2_selisih' => null, 'ss2_anomali' => false, 'ss2_level' => 'waiting', 'ss2_status' => 'Menunggu data pembanding'];
+    }
+
+    private function readingsWithSs2($records)
+    {
+        $records = $records->values();
+
+        $candidateStreak = 0;
+
+        return $records->map(function ($row, $index) use ($records, &$candidateStreak) {
+            if ($index === 0) return array_merge($this->reading($row), $this->emptySs2Comparison());
+
+            $comparison = $this->ss2Comparison($records[$index - 1], $row);
+            $candidateStreak = $comparison['ss2_level'] === 'candidate' ? $candidateStreak + 1 : 0;
+
+            return array_merge($this->reading($row), $this->ss2Comparison($records[$index - 1], $row, $candidateStreak));
+        });
+    }
+
     public function readings(Request $request)
     {
         if ($request->boolean('latest')) {
-            $rows = LabSubmersible::orderByDesc('created_at')->orderByDesc('id')->limit(60)->get()->reverse()->values()->map(fn ($row) => $this->reading($row));
+            $records = LabSubmersible::orderByDesc('created_at')->orderByDesc('id')->limit(61)->get()->reverse()->values();
+            $rows = $this->readingsWithSs2($records)->take(-60)->values();
             return response()->json(['rows' => $rows])->header('Cache-Control', 'no-store');
         }
 
@@ -59,14 +123,10 @@ class LabMonitoringController extends Controller
                 'period' => ['from' => $from->format('Y-m-d\TH:i'), 'to' => $to->format('Y-m-d\TH:i')],
             ])->header('Cache-Control', 'no-store');
         }
-        if ((clone $query)->count() > 10000) {
-            throw ValidationException::withMessages(['from' => 'Rentang melebihi 10.000 pembacaan. Pilih rentang lebih pendek untuk grafik dan ekspor.']);
-        }
-
         return response()->json([
             'from' => $from->format('d/m/Y H:i:s'), 'to' => $to->format('d/m/Y H:i:s'),
             'timezone' => config('app.timezone'),
-            'rows' => $query->orderBy('created_at')->orderBy('id')->get()->map(fn ($row) => $this->reading($row)),
+            'rows' => $this->readingsWithSs2($query->orderBy('created_at')->orderBy('id')->get()),
         ]);
     }
 
@@ -89,7 +149,7 @@ class LabMonitoringController extends Controller
     {
         return [
             'time' => $row->created_at->format('d/m/Y H:i:s'),
-            'label' => $row->created_at->format('d/m H:i'),
+            'label' => $row->created_at->format('H:i:s'),
             'tegangan' => (float) $row->tegangan,
             'arus' => $row->tegangan > 0 ? round($row->daya / $row->tegangan, 2) : 0,
             'daya' => (float) $row->daya,
